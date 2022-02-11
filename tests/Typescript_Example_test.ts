@@ -1,9 +1,7 @@
 Feature('Typescript Example');
 
-Scenario('test something', async ({ I, loginPage, homePage }) => {
+Scenario('test something', async ({ I,  homePage }) => {
   homePage.goToHome()
   I.printMessage('Helper message')
-  loginPage.testMethod('Login Page')
-  await  loginPage.link()
-  I.printHelpers()
+  I.see('Google offered in');
 });

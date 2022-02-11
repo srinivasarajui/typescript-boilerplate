@@ -7,31 +7,51 @@ const { bootstrap } = require('./presettings.ts');
 setHeadlessWhen(process.env.HEADLESS);
 
 exports.config = {
-  tests: './tests/**_test.ts',
   output: './output',
   helpers: {
     Playwright: {
-      url: 'https://github.com',
-      show: false,
+      url: 'https://google.com',
+      show: true,
       windowSize: '1200x900',
-      browser: 'chromium'
+      browser: 'chromium',
     },
     CustomHelper: {
-      require: './CustomHelper.ts'
-    }
+      require: './CustomHelper.ts',
+    },
   },
   bootstrap,
   include: {
     loginPage: './loginPage.ts',
-    homePage: './homePage.ts'
+    homePage: './pom/homePage.ts',
   },
-  name: 'typescript-boilerplate',
+  mocha: {},
+  teardown: null,
+  hooks: [],
+  gherkin: {
+    features: './features/**/*.feature',
+    steps: [
+      './step_definitions/AuroraContractDetails/contractGridViewStepImp.ts',
+      './step_definitions/AuroraRepository/auroraContractGridViewStepImp.ts',
+      './step_definitions/ContractDetails/contractDetailsStepImp.ts',
+      './step_definitions/ContractingParty/contractingPartyStepImp.ts',
+      './step_definitions/Document/DocumentStepImp.ts',
+      './step_definitions/Milestone/AddMilestone/AddMilestoneStepImp.ts',
+      './step_definitions/Repository/Contract Details/AuroraContractDetailsStepImp.ts',
+      './step_definitions/Repository/ContractHierarchy/LinkedContractStepImp.ts',
+      './step_definitions/Repository/UploadContract/BasicInformationStepImp.ts',
+    ],
+  },
   plugins: {
-    retryFailedStep: {
-      enabled: true
-    },
     screenshotOnFail: {
-      enabled: true
-    }
-  }
-}
+      enabled: true,
+    },
+    retryFailedStep: {
+      enabled: true,
+    },
+    allure: {
+      enabled: true,
+    },
+  },
+  tests: './tests/**_test.ts',
+  name: 'typescript-boilerplate',
+};
